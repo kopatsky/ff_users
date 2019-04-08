@@ -1,0 +1,201 @@
+{
+	"users": [{
+		"avatar": "avatars/dimm.png",
+		"nickname": "dimm",
+		"firstName": "Dmitry",
+		"lastName": "Kopatsky",
+		"position": "UI/UX",
+		"projects": ["Facewatch", "Karatel", "Project 3", "Project 4"],
+		"skills": ["UI/UX", "webdesign", "graphics design", "mobile app design", "ajile", "scrum", "Sketch", "Zeplin", "Adobe", "AfterEffect"],
+		"bio": "who is John Galt?",
+		"sex": "male",
+		"birthday": false,
+		"birthdaydate": "17.01.1979",
+		"vacation": "01.06.2019",
+		"type": "part-time",
+		"contacts": [
+			["time", 2],
+			["phone", "+380675673058"],
+			["email", "dmitry.kopatsky@aejis.eu"],
+			["skype", "dmitry.kopatsky"],
+			["github", "dmitry.kopatsky"]
+		]
+		
+	},{
+		"avatar": "avatars/dimm.png",
+		"nickname": "nic",
+		"firstName": "Nicole",
+		"lastName": "May",
+		"position": "Programmer",
+		"projects": ["RubyMeditation", "Facewatch", "Elixir-Club"],
+		"skills": ["UI/UX", "webdesign", "graphics design", "mobile app design", "ajile", "scrum", "Sketch", "Zeplin", "Adobe", "AfterEffect"],
+		"bio": "who is John Galt?",
+		"sex": "male",
+		"birthday": true,
+		"birthdaydate": "17.01.1979",
+		"vacation": "01.06.2019",
+		"type": "part-time",
+		"contacts": [
+			["time", 2],
+			["phone", "+380675673058"],
+			["email", "dmitry.kopatsky@aejis.eu"],
+			["skype", "dmitry.kopatsky"],
+			["github", "dmitry.kopatsky]"]
+		]
+		
+	},{
+		"avatar": "avatars/dimm.png",
+		"nickname": "white",
+		"firstName": "Michael",
+		"lastName": "White",
+		"position": "Copywriter",
+		"projects": ["Elixir-Club", "Karatel", "RubyMeditation", "Firefly"],
+		"skills": ["UI/UX", "webdesign", "graphics design", "mobile app design", "ajile", "scrum", "Sketch", "Zeplin", "Adobe", "AfterEffect"],
+		"bio": "who is John Galt?",
+		"sex": "male",
+		"birthday": false,
+		"birthdaydate": "17.01.1979",
+		"vacation": "01.06.2019",
+		"type": "part-time",
+		"contacts": [
+			["time", 2],
+			["phone", "+380675673058"],
+			["email", "dmitry.kopatsky@aejis.eu"],
+			["skype", "dmitry.kopatsky"],
+			["github", "dmitry.kopatsky"]
+		]
+		
+	},{
+		"avatar": "avatars/dimm.png",
+		"nickname": "snowman",
+		"firstName": "Alan",
+		"lastName": "Clark",
+		"position": "Front-End Developer",
+		"projects": ["Firefly", "ASWood", "Limos"],
+		"skills": ["UI/UX", "webdesign", "graphics design", "mobile app design", "ajile", "scrum", "Sketch", "Zeplin", "Adobe", "AfterEffect"],
+		"bio": "who is John Galt?",
+		"sex": "male",
+		"birthday": false,
+		"birthdaydate": "17.01.1979",
+		"vacation": "01.06.2019",
+		"type": "part-time",
+		"contacts": [
+			["time", 2],
+			["phone", "+380675673058"],
+			["email", "dmitry.kopatsky@aejis.eu"],
+			["skype", "dmitry.kopatsky"],
+			["github", "dmitry.kopatsky"]
+		]
+		
+	},{
+		"avatar": "avatars/dimm.png",
+		"nickname": "coffee",
+		"firstName": "Kenneth",
+		"lastName": "Jacobs",
+		"position": "Programmer",
+		"projects": ["Facewatch", "ASWood", "RubyMeditation", "Elixir-Club", "Limos"],
+		"skills": ["UI/UX", "webdesign", "graphics design", "mobile app design", "ajile", "scrum", "Sketch", "Zeplin", "Adobe", "AfterEffect"],
+		"bio": "who is John Galt?",
+		"sex": "male",
+		"birthday": false,
+		"birthdaydate": "17.01.1979",
+		"vacation": "01.06.2019",
+		"type": "part-time",
+		"contacts": [
+			["time", 2],
+			["phone", "+380675673058"],
+			["email", "dmitry.kopatsky@aejis.eu"],
+			["skype", "dmitry.kopatsky"],
+			["github", "dmitry.kopatsky"]
+		]
+		
+	},{
+		"avatar": "avatars/dimm.png",
+		"nickname": "Jack",
+		"firstName": "Guzman",
+		"lastName": "White",
+		"position": "Tester",
+		"projects": ["ASWood", "Karatel", "Firefly", "RubyMeditation"],
+		"skills": ["UI/UX", "webdesign", "graphics design", "mobile app design", "ajile", "scrum", "Sketch", "Zeplin", "Adobe", "AfterEffect"],
+		"bio": "who is John Galt?",
+		"sex": "male",
+		"birthday": false,
+		"birthdaydate": "17.01.1979",
+		"vacation": "01.06.2019",
+		"type": "part-time",
+		"contacts": [
+			["time", 2],
+			["phone", "+380675673058"],
+			["email", "dmitry.kopatsky@aejis.eu"],
+			["skype", "dmitry.kopatsky"],
+			["github", "dmitry.kopatsky"]
+		]
+		
+	},{
+		"avatar": "avatars/dimm.png",
+		"nickname": "sugar",
+		"firstName": "Carolyn",
+		"lastName": "Lopez",
+		"position": "UI/UX",
+		"projects": ["Limos", "Karatel", "Facewatch", "Firefly"],
+		"skills": ["UI/UX", "webdesign", "graphics design", "mobile app design", "ajile", "scrum", "Sketch", "Zeplin", "Adobe", "AfterEffect"],
+		"bio": "who is John Galt?",
+		"sex": "male",
+		"birthday": false,
+		"birthdaydate": "17.01.1979",
+		"vacation": "01.06.2019",
+		"type": "part-time",
+		"contacts": [
+			["time", 2],
+			["phone", "+380675673058"],
+			["email", "dmitry.kopatsky@aejis.eu"],
+			["skype", "dmitry.kopatsky"],
+			["github", "dmitry.kopatsky"]
+		]
+		
+	},{
+		"avatar": "avatars/dimm.png",
+		"nickname": "princess",
+		"firstName": "Diana",
+		"lastName": "Simpson",
+		"position": "Tester",
+		"projects": ["Karatel", "Firefly", "RubyMeditation", "Elixir-Club", "Facewatch"],
+		"skills": ["UI/UX", "webdesign", "graphics design", "mobile app design", "ajile", "scrum", "Sketch", "Zeplin", "Adobe", "AfterEffect"],
+		"bio": "who is John Galt?",
+		"sex": "male",
+		"birthday": true,
+		"birthdaydate": "17.01.1979",
+		"vacation": "01.06.2019",
+		"type": "part-time",
+		"contacts": [
+			["time", 2],
+			["phone", "+380675673058"],
+			["email", "dmitry.kopatsky@aejis.eu"],
+			["skype", "dmitry.kopatsky"],
+			["github", "dmitry.kopatsky"]
+		]
+		
+	},{
+		"avatar": "avatars/dimm.png",
+		"nickname": "sniper",
+		"firstName": "Mark",
+		"lastName": "Rice",
+		"position": "Programmer",
+		"projects": ["Firefly", "RubyMeditation"],
+		"skills": ["UI/UX", "webdesign", "graphics design", "mobile app design", "ajile", "scrum", "Sketch", "Zeplin", "Adobe", "AfterEffect"],
+		"bio": "who is John Galt?",
+		"sex": "male",
+		"birthday": false,
+		"birthdaydate": "17.01.1979",
+		"vacation": "01.06.2019",
+		"type": "part-time",
+		"contacts": [
+			["time", 2],
+			["phone", "+380675673058"],
+			["email", "dmitry.kopatsky@aejis.eu"],
+			["skype", "dmitry.kopatsky"],
+			["github", "dmitry.kopatsky"]
+		]
+		
+	}]
+}
