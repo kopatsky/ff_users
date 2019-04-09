@@ -24,7 +24,6 @@ htPosition = 0.35
 htStatus = 0.55
 htProjects = 0.65
 
-selects = []
 onlines = []
 birthdays = []
 line = []
@@ -329,6 +328,7 @@ heights = () ->
 		y: table.y + table.height + 100	
 		options:
 			time: .2
+#build Selected Zone
 selectZoneDraw = () ->
 	selectZone.width = 400
 	selectZone.height = 42
@@ -371,21 +371,17 @@ desktopInterface = ->
 	logo.x = Align.center
 	logo.y = 36
 	
-# 	selectZone = new Layer
-# 		parent: index.content
 	selectZoneDraw()
-
-	
-		
 	desctopTableTop()
 	desctopTableHeader()
+	
 	for i in [0...showingLines.length]
 		fillLines(showingLines[i], i)
 	
 	
 
 #popup
-flag = "no"
+flag = "no" # was button pressed
 newButton = (parentLayer, text, i, posY) ->
 	flag = "no"
 	button = new Layer
@@ -741,8 +737,7 @@ popupUser = (i) ->
 		x: Align.center
 		y: infoHeight
 		
-	if newButton(uCard, "Select", i, spacer.y + 20) == "1"	
-		print "2"
+	newButton(uCard, "Select", i, spacer.y + 20) 
 		
 	uCard.height = spacer.y + 72 
 		
@@ -815,6 +810,14 @@ desktopInterface()
 desktopResize = ->
 	table.width = currentWidth
 	desktopInterface()
+
+drawLines = () ->
+	if showingLines.length > 0
+		for k in [0..showingLines.length-1]
+			line[showingLines[k]].animate
+				y: startLineY + (lineHeight+5) * k
+				options:
+					time: .2
 	
 dragY = 0	
 # selected = (i) ->
@@ -827,13 +830,7 @@ setSelected = (i) ->
 	for j in [0..usersNumber-1]
 		if line[j].selected == false and line[j].find == true
 			showingLines.push(j)
-	if showingLines.length > 0
-		for k in [0..showingLines.length-1]
-			line[showingLines[k]].animate
-				y: startLineY + (lineHeight+5) * k
-				options:
-					time: .2
-# 		line[k].on Events.AnimationEnd, ->
+	drawLines()# 		line[k].on Events.AnimationEnd, ->
 	selectedText = "selected "+selectedLine.length
 	selectZoneDraw()
 	heights()
@@ -875,21 +872,34 @@ listenCheck = () ->
 				isClick = true
 				clearLines()
 				setSelected(this.ind)		
+listeners = ->
+	listenHover()
+	listenCheck()
+	listenPressLine()
+	listenDragLine()
 				
 #Search
 searchInfo = ->
+# Restore all lines
 	for i in [0..usersNumber-1]
 		line[i].find = false
 		line[i].visible = true
-	for i in [0..usersNumber-1]
-		if request == "All" or request == "all"
-			if line[i].selected == false
-				showingLines.push(i)
-				line[i].find =true
-		if request == "#{data.users[i].position}"
+#reply for request
+		if request == "All" or request == "all" or request == "ALL"
 			if line[i].selected == false
 				showingLines.push(i)
 				line[i].find = true
+
+		if request == "#{data.users[i].position}" 
+			if line[i].selected == false
+				showingLines.push(i)
+				line[i].find = true
+#hide unfinded lines	
+	for i in [0..usersNumber-1]
+		if line[i].find == false
+			line[i].visible = false
+		
+			
 	
 sendRequest = ->
 	if searchInput.value is ""
@@ -904,22 +914,10 @@ sendRequest = ->
 	searchResults.opacity = 1
 	searchInput.visible = false
 	
-# 	for i in showingLines
-# 		line[i].destroy()
 	searchInfo()
-	for j in [0..usersNumber-1]
-		if line[j].find == false
-			line[j].visible = false
-	for k in [0..showingLines.length-1]
-		line[showingLines[k]].animate
-			y: startLineY + (lineHeight+5) * k
-			options:
-				time: .2
+	drawLines()
 	searchForm()
 	heights()
-	listenHover()
-	listenPressLine()
-	listenDragLine()
 
 inputRequest = ->
 	searchResults.animate
@@ -936,8 +934,8 @@ inputRequest = ->
 	searchInput.z = 100
 	searchResults.z = 10
 	searchInput.onEnterKey -> 
-		for i in showingLines
-			showingLines.pop()
+		clearLines()
+# 		print "Clear"
 		sendRequest()
 
 
@@ -953,13 +951,10 @@ window.onresize = ->
 	if mwidth <1000
 		currentWidth = widthTablet
 
+listeners()
 
-listenHover()
-listenCheck()
-listenPressLine()
-listenDragLine()
 		
-# searchResults.onTap ->
-# 	inputRequest()
+searchResults.onTap ->
+	inputRequest()
 	
 	
