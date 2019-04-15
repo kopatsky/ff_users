@@ -27,7 +27,6 @@ htProjects = 0.65
 onlines = []
 birthdays = []
 line = []
-avatar = []
 selects = []
 selectedLine = []
 showingLines = []
@@ -208,27 +207,13 @@ fillLines = (i, pos) ->
 	selects[i].y = Align.center
 	selects[i].ind = i
 	
-	avatar[i] = new Layer
+	avatar = new Layer
 		width: 32
 		height: 32
 		parent: line[i]
 		borderRadius: 3
 		y: Align.center
 		x: selects[i].x + select.width + 12
-		clip: true
-		name: "avatar" + i
-		
-	avatar[i].ind = i
-	
-	photo = new TextLayer
-		parent: avatar[i]
-		fontFamily: Nunito
-		fontSize: 14
-		color: "#fff"
-		text: i
-		x: Align.center
-		y: Align.center
-		
 	
 		
 	nick = new TextLayer
@@ -240,7 +225,7 @@ fillLines = (i, pos) ->
 		fontSize: 14
 		fontWeight: "bold"
 		color: "#4A4A4A"
-		x: avatar[i].x+avatar[i].width+16
+		x: avatar.x+avatar.width+16
 		y:Align.center
 		
 	name = new TextLayer
@@ -343,40 +328,16 @@ heights = () ->
 		y: table.y + table.height + 100	
 		options:
 			time: .2
-			
 #build Selected Zone
-drawSelectedAvatars = (i) ->
-	avatar[i].parent = selectZone
-	avatar[i].visible = true
-	avatar[i].opacity = 0
-	avatar[i].y = Align.center
-	avatar[i].x = 5 + (32+5)*(selectedLine.length-1)
-	avatar[i].animate
-		opacity: 1
-		options: 
-			time: .2
-
-drawAvatarsInZone = ->
-	if selectedLine.length > 0
-		j = 0
-		for i in [0..usersNumber-1]
-			if line[i].selected == true
-				avatar[i].animate
-					x: 5 + (32+5)*(j)
-					options: 
-						time: .2
-				j = j + 1
-			
-
 selectZoneDraw = () ->
 	selectZone.width = 400
-	selectZone.height = 43
+	selectZone.height = 42
 	selectZone.backgroundColor = null
 	selectZone.x = Align.center
 	selectZone.y = 140
 		
 	selectZone.style =
-		"border-radius": "6px"
+		"border-radius": "9px"
 		"border-width": "1px"
 		"border-color": "#CDD5D7"
 		"border-style": "dashed"
@@ -517,7 +478,8 @@ newButton = (parentLayer, text, i, posY) ->
 		buttonLabel.color = "#E3E5ED"
 		buttonLabel.x = Align.center
 		buttonLabel.y = Align.center
-		flag = text
+		flag = "select"
+	
 
 popupOn = false
 popupBack = new Layer
@@ -775,10 +737,7 @@ popupUser = (i) ->
 		x: Align.center
 		y: infoHeight
 		
-	if line[i].selected == false 
-		newButton(uCard, "Select", i, spacer.y + 20) 
-	if line[i].selected == true 
-		newButton(uCard, "Deselect", i, spacer.y + 20) 
+	newButton(uCard, "Select", i, spacer.y + 20) 
 		
 	uCard.height = spacer.y + 72 
 		
@@ -817,16 +776,10 @@ popupUser = (i) ->
 		popupBack.opacity = 0
 
 	uCard.onMouseUp ->
-		if flag =="Select"
+		if flag =="select"
 			clearLines()
-			closePopup()
 			setSelected(i)
-			
-		if flag =="Deselect"
-			clearLines()
 			closePopup()
-			deselect(i)
-			
 		
 		
 
@@ -867,36 +820,9 @@ drawLines = () ->
 					time: .2
 	
 dragY = 0	
-listenSelectedPress = () ->
-		for i in selectedLine
-			avatar[i].onTap ->
-				if popupOn == false 
-					popupUser(this.ind)
-			
-				
-selected = (i) ->
-	avatr[i].parent = selectZone
+# selected = (i) ->
+# 	line[i].avatar.parent = selectZone
 
-deselect = (i) ->
-	line[i].selected = false
-	avatar[i].parent = line[i]
-	for k in [0..selectedLine.length - 1]
-		if selectedLine[k] == i
-			selectedLine.splice(k, 1)
-	avatar[i].y = Align.center
-	avatar[i].x = selects[i].x + select.width + 12
-	line[i].visible = true
-	line[i].opacity = 1
-	for j in [0..usersNumber-1]
-		if line[j].selected == false and line[j].find == true
-			showingLines.push(j)
-# 			avatar[i].int = j
-	drawLines()
-	drawAvatarsInZone()
-	selectZoneDraw()
-	heights()
-	searchForm()
-	
 setSelected = (i) ->
 	line[i].selected = true
 	line[i].visible = false
@@ -904,16 +830,9 @@ setSelected = (i) ->
 	for j in [0..usersNumber-1]
 		if line[j].selected == false and line[j].find == true
 			showingLines.push(j)
-# 	for k in [0..setSelected.length-1]
-# 		avatar[i].ind = k
-	drawLines()
-	drawSelectedAvatars(i)
-	selectZoneLabel.animate
-		opacity: 0
-		options: 
-			time: .2
+	drawLines()# 		line[k].on Events.AnimationEnd, ->
+	selectedText = "selected "+selectedLine.length
 	selectZoneDraw()
-	listenSelectedPress()
 	heights()
 	searchForm()
 # 	selected(i)
@@ -952,17 +871,12 @@ listenCheck = () ->
 			selects[i].onTap ->
 				isClick = true
 				clearLines()
-				setSelected(this.ind)	
-
-
-							
-					
+				setSelected(this.ind)		
 listeners = ->
 	listenHover()
 	listenCheck()
 	listenPressLine()
 	listenDragLine()
-
 				
 #Search
 searchInfo = ->
