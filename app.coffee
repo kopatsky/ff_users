@@ -535,8 +535,6 @@ popupBack = new Layer
 	visible: false
 
 
-	
-		
 
 popupUser = (i) ->
 	popupOn = true
@@ -587,7 +585,17 @@ popupUser = (i) ->
 		y: 16
 		borderRadius: 4
 		clip: true
-		
+	
+	photo = new TextLayer
+		parent: userpic
+		fontFamily: Nunito
+		fontSize: 28
+		color: "#fff"
+		text: i
+		x: Align.center
+		y: Align.center	
+	
+			
 	nick = new TextLayer
 		parent: uCard
 		text: users[i].nickname
@@ -895,6 +903,7 @@ deselect = (i) ->
 	for j in [0..usersNumber-1]
 		if line[j].selected == false and line[j].find == true
 			showingLines.push(j)
+	line[i].stateSwitch("normal")
 	drawLines()
 	drawAvatarsInZone()
 	selectZoneDraw()
