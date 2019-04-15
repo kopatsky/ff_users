@@ -178,6 +178,7 @@ desctopTableHeader = () ->
 	
 #fill data for one line
 fillLines = (i, pos) ->
+	color = "#474747"
 	lineWidth = table.width - 28
 	nickLength = lineWidth*htUser #length of nickname in string
 	nameLength = lineWidth*htName#length of name in string
@@ -239,7 +240,7 @@ fillLines = (i, pos) ->
 		fontFamily: Nunito
 		fontSize: 14
 		fontWeight: "bold"
-		color: "#4A4A4A"
+		color: color
 		x: avatar[i].x+avatar[i].width+16
 		y:Align.center
 		
@@ -248,7 +249,7 @@ fillLines = (i, pos) ->
 		text: "#{data.users[i].firstName}" +" "+ "#{data.users[i].lastName}"
 		fontFamily: Nunito
 		fontSize: 14
-		color: "#908C8C"
+		color: color
 		width: nameLength
 		x: nick.x+nick.width+16
 		y:Align.center
@@ -258,7 +259,7 @@ fillLines = (i, pos) ->
 		text: "#{data.users[i].position}"
 		fontFamily: Nunito
 		fontSize: 14
-		color: "#908C8C"
+		color: color
 		width: table.width*(htStatus-htPosition)
 		x: table.width*htPosition 
 		y:Align.center	
@@ -297,7 +298,7 @@ fillLines = (i, pos) ->
 		text: "#{data.users[i].projects[0]}"
 		fontSize: 14
 		fontFamily: Nunito
-		color: "#908C8C"
+		color: color
 		width: table.width*(1-htProjects)
 		x: lineWidth*htProjects
 		y:Align.center	
@@ -315,7 +316,7 @@ fillLines = (i, pos) ->
 		shadowY: 0
 		shadowBlur: 0
 		shadowSpread : 0
-		opacity: 1
+		opacity: .7
 		shadowColor: "rgba(201,201,201,.5)"
 	line[i].states.hover = 
 		shadowX: 0
@@ -366,7 +367,11 @@ drawAvatarsInZone = ->
 					options: 
 						time: .2
 				j = j + 1
-			
+	if selectedLine.length == 0
+		selectZoneLabel.animate
+			opacity: 1
+			options: 
+				time: .2		
 
 selectZoneDraw = () ->
 	selectZone.width = 400
@@ -890,7 +895,6 @@ deselect = (i) ->
 	for j in [0..usersNumber-1]
 		if line[j].selected == false and line[j].find == true
 			showingLines.push(j)
-# 			avatar[i].int = j
 	drawLines()
 	drawAvatarsInZone()
 	selectZoneDraw()
@@ -898,20 +902,20 @@ deselect = (i) ->
 	searchForm()
 	
 setSelected = (i) ->
+	
 	line[i].selected = true
 	line[i].visible = false
+	if selectedLine.length == 0
+		selectZoneLabel.animate
+			opacity: 0
+			options: 
+				time: .2
 	selectedLine.push(i)
 	for j in [0..usersNumber-1]
 		if line[j].selected == false and line[j].find == true
 			showingLines.push(j)
-# 	for k in [0..setSelected.length-1]
-# 		avatar[i].ind = k
 	drawLines()
 	drawSelectedAvatars(i)
-	selectZoneLabel.animate
-		opacity: 0
-		options: 
-			time: .2
 	selectZoneDraw()
 	listenSelectedPress()
 	heights()
