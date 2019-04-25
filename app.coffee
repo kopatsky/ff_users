@@ -28,6 +28,7 @@ onlines = []
 birthdays = []
 line = []
 avatar = []
+selectedAvatar = []
 selects = []
 selectedLine = []
 showingLines = []
@@ -190,6 +191,7 @@ fillLines = (i, pos) ->
 	line[i] = new Layer
 		parent: table
 		name: "line" + pos
+		
 	line[i].width = lineWidth
 	line[i].height = lineHeight
 	line[i].y = startLineY + (lineHeight+5) * pos 
@@ -221,6 +223,7 @@ fillLines = (i, pos) ->
 		
 	avatar[i].ind = i
 	
+	
 	photo = new TextLayer
 		parent: avatar[i]
 		fontFamily: Nunito
@@ -229,7 +232,11 @@ fillLines = (i, pos) ->
 		text: i
 		x: Align.center
 		y: Align.center
-		
+	
+	selectedAvatar[i] = avatar[i].copy()
+	selectedAvatar[i].parent = selectZone
+	selectedAvatar[i].visible = false
+	selectedAvatar[i].ind = i
 	
 		
 	nick = new TextLayer
@@ -347,12 +354,11 @@ heights = () ->
 			
 #build Selected Zone
 drawSelectedAvatars = (i) ->
-	avatar[i].parent = selectZone
-	avatar[i].visible = true
-	avatar[i].opacity = 0
-	avatar[i].y = Align.center
-	avatar[i].x = 5 + (32+5)*(selectedLine.length-1)
-	avatar[i].animate
+	selectedAvatar[i].visible = true
+	selectedAvatar[i].opacity = 0
+	selectedAvatar[i].y = Align.center
+	selectedAvatar[i].x = 5 + (32+5)*(selectedLine.length-1)
+	selectedAvatar[i].animate
 		opacity: 1
 		options: 
 			time: .2
@@ -362,7 +368,7 @@ drawAvatarsInZone = ->
 		j = 0
 		for i in [0..usersNumber-1]
 			if line[i].selected == true
-				avatar[i].animate
+				selectedAvatar[i].animate
 					x: 5 + (32+5)*(j)
 					options: 
 						time: .2
@@ -880,24 +886,48 @@ drawLines = () ->
 					time: .2
 	
 dragY = 0	
+dragX = 0	
 listenSelectedPress = () ->
 		for i in selectedLine
-			avatar[i].onTap ->
+			selectedAvatar[i].onTap ->
 				if popupOn == false 
 					popupUser(this.ind)
+
+unselectAvatar = (i) ->
+# 		if selectedAvatar[i].y > (selectZone.y+selectZone.height - table.y)
+		if selectedAvatar[i].y > (selectZone.y+selectZone.height - table.y) or (selectedAvatar[i].y+avatar[i].height) < (selectZone.y)
+			clearLines()
+			deselect(i)
 			
+listenDragAvatar = () ->
+		for i in selectedLine
+			selectedAvatar[i].draggable.enabled = true
+			selectedAvatar[i].on Events.Move, ->
+				index.scrollVertical = false
+			selectedAvatar[i].onDragStart ->
+				dragX = this.x	
+				this.z = 500	
+			selectedAvatar[i].onDragEnd ->
+				clearLines()
+				unselectAvatar(this.ind)
+				this.z = 1
+				this.animate
+						x: dragX
+						y: Align.center
+					options:
+						time: .2
+				index.scrollVertical = true	
 				
 selected = (i) ->
-	avatr[i].parent = selectZone
+	selectedAvatr[i].visible = true
 
 deselect = (i) ->
+	selectedAvatar[i].visible = false
 	line[i].selected = false
-	avatar[i].parent = line[i]
+	line[i].draggable.enabled = true
 	for k in [0..selectedLine.length - 1]
 		if selectedLine[k] == i
 			selectedLine.splice(k, 1)
-	avatar[i].y = Align.center
-	avatar[i].x = selects[i].x + select.width + 12
 	line[i].visible = true
 	line[i].opacity = 1
 	for j in [0..usersNumber-1]
@@ -911,9 +941,9 @@ deselect = (i) ->
 	searchForm()
 	
 setSelected = (i) ->
-	
 	line[i].selected = true
 	line[i].visible = false
+	line[i].draggable.enabled = false
 	if selectedLine.length == 0
 		selectZoneLabel.animate
 			opacity: 0
@@ -927,12 +957,14 @@ setSelected = (i) ->
 	drawSelectedAvatars(i)
 	selectZoneDraw()
 	listenSelectedPress()
+	listenDragAvatar()
 	heights()
 	searchForm()
 # 	selected(i)
 clearLines = ->
 	for i in showingLines
 		showingLines.pop()
+
 
 collision = (i) ->
 	if (line[i].y < selectZone.y+selectZone.height - table.y) and (line[i].y > selectZone.y - table.y)
@@ -960,6 +992,7 @@ listenDragLine = () ->
 # 				this.on Events.AnimationEnd, ->	
 # 					drag = false
 
+
 listenCheck = () ->
 		for i in showingLines
 			selects[i].onTap ->
@@ -975,6 +1008,7 @@ listeners = ->
 	listenCheck()
 	listenPressLine()
 	listenDragLine()
+	listenDragAvatar()
 
 				
 #Search
